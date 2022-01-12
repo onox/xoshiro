@@ -39,3 +39,7 @@ jobs:
 
     - name: Build crates
       run: alr build
+
+    - name: Prove crate
+      run: alr exec -- gnatprove -P xoshiro.gpr
+      if: ${{ matrix.compiler == 'community'}}
