@@ -1,0 +1,6 @@
+pragma Restrictions (No_Obsolescent_Features);
+
+pragma Restrictions (No_Implementation_Attributes);
+pragma Restrictions (No_Implementation_Identifiers);
+pragma Restrictions (No_Implementation_Pragmas);
+pragma Restrictions (No_Implementation_Units);
