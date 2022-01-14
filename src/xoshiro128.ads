@@ -14,11 +14,16 @@
 --  See the License for the specific language governing permissions and
 --  limitations under the License.
 
+generic
+   type Unsigned_32 is mod <>;
 package Xoshiro128 with SPARK_Mode => On is
    pragma Pure;
 
-   type Unsigned_32 is mod 2 ** 32
-     with Size => 32;
+   pragma Compile_Time_Error (Unsigned_32'Size /= 32,
+                              "Invalid mod type for Xoshiro128");
+
+   pragma Compile_Time_Error (Unsigned_32'Modulus /= 2**32,
+                              "Invalid mod type for Xoshiro128");
 
    type Unsigned_64 is mod 2 ** 64
      with Size => 64;
@@ -44,7 +49,6 @@ package Xoshiro128 with SPARK_Mode => On is
 
 private
 
-   type Generator is array (0 .. 3) of Unsigned_32
-     with Default_Component_Value => Unsigned_32'Last;
+   type Generator is array (0 .. 3) of Unsigned_32;
 
 end Xoshiro128;
