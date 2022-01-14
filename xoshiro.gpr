@@ -16,7 +16,7 @@ project Xoshiro is
    package Binder renames Xoshiro_Config.Binder;
 
    package Prove is
-      for Switches use ("-checks-as-errors", "--level=0", "--no-axiom-guard", "--mode=flow");
+      for Proof_Switches ("Ada") use ("--checks-as-errors", "--level=0", "--no-axiom-guard", "--mode=flow");
    end Prove;
 
 end Xoshiro;
