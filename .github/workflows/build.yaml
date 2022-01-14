@@ -35,6 +35,7 @@ jobs:
     - name: Install Alire
       uses: alire-project/setup-alire@v1
       with:
+        branch: "master"
         toolchain: "gnat_external"
 
     - name: Build crates
