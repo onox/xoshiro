@@ -1,19 +1,29 @@
-with "xoshiro_config";
+with "config/xoshiro_config";
 
 project Xoshiro is
 
    for Library_Name use "xoshiro";
-   for Library_Version use "1.0.0";
+   for Library_Version use Project'Library_Name & ".so." & Xoshiro_Config.Crate_Version;
 
-   for Source_Dirs use ("src");
-   for Object_Dir use "build/obj";
+   for Create_Missing_Dirs use "True";
+
+   for Source_Dirs use ("src/");
+   for Object_Dir use "build/obj/" & Xoshiro_Config.Build_Profile;
    for Library_Dir use "build/lib";
 
-   package Compiler extends Xoshiro_Config.Compiler is
+   type Library_Type_Type is ("relocatable", "static", "static-pic");
+   Library_Type : Library_Type_Type :=
+     external ("XOSHIRO_LIBRARY_TYPE", external ("LIBRARY_TYPE", "static"));
+   for Library_Kind use Library_Type;
+
+   package Compiler is
+      for Default_Switches ("Ada") use Xoshiro_Config.Ada_Compiler_Switches & ("-gnatyM99");
       for Local_Configuration_Pragmas use "gnat.adc";
    end Compiler;
 
-   package Binder renames Xoshiro_Config.Binder;
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
 
    package Prove is
       for Proof_Switches ("Ada") use ("--checks-as-errors", "--level=0", "--no-axiom-guard", "--mode=flow");
