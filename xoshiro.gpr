@@ -26,7 +26,7 @@ project Xoshiro is
    end Binder;
 
    package Prove is
-      for Proof_Switches ("Ada") use ("--checks-as-errors", "--level=0", "--no-axiom-guard", "--mode=flow");
+      for Proof_Switches ("Ada") use ("--checks-as-errors", "-j0", "--cwe", "--pedantic", "--prover=all", "--level=4", "--mode=gold", "--report=all");
    end Prove;
 
 end Xoshiro;

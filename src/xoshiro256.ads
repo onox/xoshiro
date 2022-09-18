@@ -14,16 +14,11 @@
 --  See the License for the specific language governing permissions and
 --  limitations under the License.
 
-generic
-   type Unsigned_64 is mod <>;
 package Xoshiro256 with SPARK_Mode => On is
    pragma Pure;
 
-   pragma Compile_Time_Error (Unsigned_64'Size /= 64,
-                              "Invalid mod type for Xoshiro256");
-
-   pragma Compile_Time_Error (Unsigned_64'Modulus /= 2**64,
-                              "Invalid mod type for Xoshiro256");
+   type Unsigned_64 is mod 2 ** 64
+     with Size => 64;
 
    subtype Unit_Interval is Long_Float range 0.0 .. 1.0;
 

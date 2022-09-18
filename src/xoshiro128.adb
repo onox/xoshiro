@@ -45,6 +45,9 @@ package body Xoshiro128 with SPARK_Mode => On is
    --
    --     The state must be seeded so that it is not everywhere zero. */
 
+   function Rotate_Left (X : Unsigned_32; K : Integer) return Unsigned_32
+     with Pre => K in 1 .. 4 | 7 | 11;
+
    function Rotate_Left (X : Unsigned_32; K : Integer) return Unsigned_32 is
      ((X * 2**K) or (X / 2**(Unsigned_32'Size - K)));
 
