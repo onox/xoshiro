@@ -44,6 +44,7 @@ package Xoshiro128 with SPARK_Mode => On is
 
 private
 
-   type Generator is array (0 .. 3) of Unsigned_32;
+   type Generator is array (0 .. 3) of Unsigned_32
+     with Default_Component_Value => 0;
 
 end Xoshiro128;
