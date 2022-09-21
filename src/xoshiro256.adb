@@ -46,11 +46,9 @@ package body Xoshiro256 with SPARK_Mode => On is
    --     a 64-bit seed, we suggest to seed a splitmix64 generator and use its
    --     output to fill s. */
 
-   function Rotate_Left (X : Unsigned_64; K : Integer) return Unsigned_64
-     with Pre => K in 1 .. 4 | 23 | 45;
-
    function Rotate_Left (X : Unsigned_64; K : Integer) return Unsigned_64 is
-     ((X * 2**K) or (X / 2**(Unsigned_64'Size - K)));
+     ((X * 2**K) or (X / 2**(Unsigned_64'Size - K)))
+   with Pre => K in 1 .. 4 | 23 | 45;
 
    procedure Next (S : in out Generator; Value : out Unsigned_64) is
       --  xoshiro256++ (xoshiro256+ is just S (0) + S (3))
