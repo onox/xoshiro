@@ -30,12 +30,17 @@ package Xoshiro128 with SPARK_Mode => On is
           Global  => null,
           Depends => (To_Float'Result => Value);
 
-   type Generator is limited private;
+   type Generator is private;
+
+   function Is_Initialized (S : Generator) return Boolean
+     with Ghost;
 
    procedure Next (S : in out Generator; Value : out Unsigned_32)
      with Inline_Always,
           Global  => null,
-          Depends => (S => S, Value => S);
+          Depends => (S => S, Value => S),
+          Pre     => Is_Initialized (S),
+          Post    => Is_Initialized (S) and S'Old /= S;
 
    procedure Reset (S : out Generator; Seed : Unsigned_64)
      with Global  => null,
@@ -46,5 +51,8 @@ private
 
    type Generator is array (0 .. 3) of Unsigned_32
      with Default_Component_Value => 0;
+
+   function Is_Initialized (S : Generator) return Boolean is
+     (for some I in S'Range => S (I) /= 0);
 
 end Xoshiro128;
